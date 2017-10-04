@@ -1,4 +1,15 @@
-structure Alist =
+signature ALIST =
+  sig
+    exception AlistExn
+    type key = int
+    type value = string
+    type alist
+    val Alist : unit -> alist
+    val add : key * value -> alist -> alist
+    val find : key -> alist -> value
+  end
+
+structure Alist :> ALIST =
   struct
     exception AlistExn
     type key = int
