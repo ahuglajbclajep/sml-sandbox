@@ -4,7 +4,7 @@ signature ALIST =
     type key = int
     type value = string
     type alist
-    val Alist : unit -> alist
+    val Alist : key * value -> alist
     val add : key * value -> alist -> alist
     val find : key -> alist -> value
   end
@@ -16,7 +16,7 @@ structure Alist :> ALIST =
     type value = string
     type alist = (key * value) list
 
-    fun Alist () = nil : alist
+    fun Alist (k, v) = [(k, v)] : alist
     fun add (k, v) ls = if exist k ls then raise AlistExn else (k, v)::ls
     and exist key nil = false
       | exist key ((k, v)::ls) = (k = key) orelse exist key ls
