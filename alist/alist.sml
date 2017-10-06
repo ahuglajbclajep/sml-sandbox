@@ -1,22 +1,18 @@
 signature ALIST =
   sig
     exception AlistExn
-    type key = int
-    type value = string
-    type alist
-    val Alist : key * value -> alist
-    val add : key * value -> alist -> alist
-    val find : key -> alist -> value
+    type (''a, 'b) alist
+    val Alist : ''a * 'b -> (''a, 'b) alist
+    val add : ''a * 'b -> (''a, 'b) alist -> (''a, 'b) alist
+    val find : ''a -> (''a, 'b) alist -> 'b
   end
 
 structure Alist :> ALIST =
   struct
     exception AlistExn
-    type key = int
-    type value = string
-    type alist = (key * value) list
+    type (''a, 'b) alist = (''a * 'b) list
+    fun Alist (k, v) = [(k, v)] : (''a, 'b) alist
 
-    fun Alist (k, v) = [(k, v)] : alist
     fun add (k, v) ls = if exist k ls then raise AlistExn else (k, v)::ls
     and exist key nil = false
       | exist key ((k, v)::ls) = (k = key) orelse exist key ls
