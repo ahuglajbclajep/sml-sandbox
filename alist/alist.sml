@@ -1,3 +1,13 @@
+(* Usage:
+ * val alist = Alist.Alist (1, "one");
+ * val alist = Alist.add (2, "two") alist;
+ * val value = Alist.find 1 alist;
+ *
+ * If you want partial application, do as follows:
+ * val find1 = fn x => Alist.find 1 x;
+ * val value = find1 alist;
+ *)
+
 signature ALIST =
   sig
     exception AlistExn
