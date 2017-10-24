@@ -1,8 +1,8 @@
 signature ALIST =
   sig
     exception AlistExn
-    type (''a, 'b) alist
-    val Alist : ''a * 'b -> (''a, 'b) alist
+    type ('a, 'b) alist
+    val Alist : 'a * 'b -> ('a, 'b) alist
     val add : ''a * 'b -> (''a, 'b) alist -> (''a, 'b) alist
     val find : ''a -> (''a, 'b) alist -> 'b
   end
@@ -10,8 +10,8 @@ signature ALIST =
 structure Alist :> ALIST =
   struct
     exception AlistExn
-    type (''a, 'b) alist = (''a * 'b) list
-    fun Alist (k, v) = [(k, v)] : (''a, 'b) alist
+    type ('a, 'b) alist = ('a * 'b) list
+    fun Alist (k, v) = [(k, v)] : ('a, 'b) alist
 
     fun add (k, v) ls = if exist k ls then raise AlistExn else (k, v)::ls
     and exist key nil = false
